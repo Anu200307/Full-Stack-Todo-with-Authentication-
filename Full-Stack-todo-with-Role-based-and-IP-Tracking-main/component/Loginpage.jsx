@@ -116,7 +116,7 @@ const LoginPage = () => {
     
     {/* Heading */}
     <h2 className="text-3xl font-bold text-center text-white mb-6 tracking-wide">
-      {isLogin ? "Welcome Back 👋" : "Create an Account ✨"}
+      {isLogin ? "Welcome Back" : "Create an Account"}
     </h2>
 
     <Form style={{ maxWidth: 360 }} onFinish={isLogin ? login : signUp} className="mx-auto">
