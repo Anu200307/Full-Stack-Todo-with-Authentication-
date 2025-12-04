@@ -111,65 +111,92 @@ const LoginPage = () => {
 
 
   return (
-    <div className="flex items-center justify-center h-screen w-screen">
-      <div className="w-[450px]">
-        <Form style={{ maxWidth: 360 }} onFinish={isLogin ? login : signUp}>
-          <Form.Item rules={[{ required: true, message: 'Please input your email!' }]}>
-            <Input
-              prefix={<MailOutlined />}
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </Form.Item>
+    <div className="flex items-center justify-center h-screen w-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+  <div className="w-[450px] p-8 bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20">
+    
+    {/* Heading */}
+    <h2 className="text-3xl font-bold text-center text-white mb-6 tracking-wide">
+      {isLogin ? "Welcome Back 👋" : "Create an Account ✨"}
+    </h2>
 
-          {!isLogin && (
-            <Form.Item rules={[{ required: true, message: 'Please input your Username!' }]}>
-              <Input
-                prefix={<UserOutlined />}
-                placeholder="Username"
-                value={Lusername}
-                onChange={(e) => setLUsername(e.target.value)}
-              />
-            </Form.Item>
-          )}
+    <Form style={{ maxWidth: 360 }} onFinish={isLogin ? login : signUp} className="mx-auto">
 
-          <Form.Item rules={[{ required: true, message: 'Please input your Password!' }]}>
-            <Input.Password
-              prefix={<LockOutlined />}
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Form.Item>
+      {/* Email */}
+      <Form.Item rules={[{ required: true, message: "Please input your email!" }]}>
+        <Input
+          prefix={<MailOutlined className="text-gray-400" />}
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="py-2 rounded-lg bg-white/20 border-white/30 text-white placeholder-gray-300"
+        />
+      </Form.Item>
 
-          {!isLogin && (
-            <Form.Item rules={[{ required: true, message: 'Please confirm your password!' }]}>
-              <Input.Password
-                prefix={<LockOutlined />}
-                placeholder="Confirm Password"
-                value={conformPassword}
-                onChange={(e) => setConformPassword(e.target.value)}
-              />
-            </Form.Item>
-          )}
+      {/* Username Only for Signup */}
+      {!isLogin && (
+        <Form.Item rules={[{ required: true, message: "Please input your Username!" }]}>
+          <Input
+            prefix={<UserOutlined className="text-gray-400" />}
+            placeholder="Username"
+            value={Lusername}
+            onChange={(e) => setLUsername(e.target.value)}
+            className="py-2 rounded-lg bg-white/20 border-white/30 text-white placeholder-gray-300"
+          />
+        </Form.Item>
+      )}
 
-          <Form.Item>
-            <Button type="primary" htmlType="submit" block>
-              {isLogin ? 'Login' : 'Sign Up'}
-            </Button>
-            <div className="text-center mt-2">
-              <span
-                onClick={() => setLogin(!isLogin)}
-                className="cursor-pointer text-blue-500"
-              >
-                {isLogin ? 'Register now!' : 'Login now!'}
-              </span>
-            </div>
-          </Form.Item>
-        </Form>
-      </div>
-    </div>
+      {/* Password */}
+      <Form.Item rules={[{ required: true, message: "Please input your Password!" }]}>
+        <Input.Password
+          prefix={<LockOutlined className="text-gray-400" />}
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="py-2 rounded-lg bg-white/20 border-white/30 text-white placeholder-gray-300"
+        />
+      </Form.Item>
+
+      {/* Confirm Password Only for Signup */}
+      {!isLogin && (
+        <Form.Item rules={[{ required: true, message: "Please confirm your password!" }]}>
+          <Input.Password
+            prefix={<LockOutlined className="text-gray-400" />}
+            placeholder="Confirm Password"
+            value={conformPassword}
+            onChange={(e) => setConformPassword(e.target.value)}
+            className="py-2 rounded-lg bg-white/20 border-white/30 text-white placeholder-gray-300"
+          />
+        </Form.Item>
+      )}
+
+      {/* Submit Button + Switch Link */}
+      <Form.Item className="mt-6">
+        <Button
+          type="primary"
+          htmlType="submit"
+          block
+          className="!h-12 text-lg font-semibold rounded-lg shadow-lg bg-blue-600 hover:bg-blue-700"
+        >
+          {isLogin ? "Login" : "Sign Up"}
+        </Button>
+
+        <div className="text-center mt-4">
+          <span className="text-gray-300"> 
+            {isLogin ? "Don't have an account?" : "Already have an account?"}
+          </span>{" "}
+          <span
+            onClick={() => setLogin(!isLogin)}
+            className="cursor-pointer text-blue-400 hover:text-blue-300 font-medium"
+          >
+            {isLogin ? "Register now!" : "Login now!"}
+          </span>
+        </div>
+      </Form.Item>
+
+    </Form>
+  </div>
+</div>
+
   );
 };
 

@@ -240,91 +240,131 @@ const UserDashBoard = () => {
 
 
     return (
-        <div className="p-4 md:p-8 max-w-screen-xl mx-auto">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
-                <h1 className="text-xl sm:text-2xl font-bold">User Dashboard</h1>
-                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-                    <Button onClick={handleLogout} danger>
-                        Logout
-                    </Button>
-                    <Button
-                        type="primary"
-                        onClick={() => setAddModalVisible(true)}
-                    >
-                        Add Todo
-                    </Button>
-                </div>
-            </div>
+       <div className="p-4 md:p-8 max-w-screen-xl mx-auto">
+    {/* Header Section */}
+    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b pb-4">
+        <h1 className="text-xl sm:text-3xl font-extrabold text-gray-800">
+            User Dashboard
+        </h1>
 
-            {loading ? (
-                <div className="flex justify-center items-center py-12">
-                    <Spin size="large" />
-                </div>
-            ) : (
-                <div className="overflow-auto">
-                    <Table
-                        columns={columns}
-                        dataSource={todos}
-                        pagination={{ pageSize: 5 }}
-                        scroll={{ x: 800 }}
-                    />
-                </div>
-            )}
-
-            <Modal
-                title="Full Description"
-                open={descModalVisible}
-                onCancel={() => setDescModalVisible(false)}
-                footer={null}
+        <div className="flex flex-col sm:flex-row gap-3">
+            <Button 
+                onClick={handleLogout} 
+                danger
+                className="font-medium shadow-md"
             >
-                <p>{fullDescription}</p>
-            </Modal>
+                Logout
+            </Button>
 
-            <Modal
-                title="Edit Todo"
-                open={editModalVisible}
-                onCancel={() => setEditModalVisible(false)}
-                onOk={handleEditSubmit}
-                okText="Save"
+            <Button
+                type="primary"
+                onClick={() => setAddModalVisible(true)}
+                className="font-medium shadow-md"
             >
-                <Form layout="vertical" form={form}>
-                    <Form.Item name="title" label="Title" rules={[{ required: true }]}>
-                        <Input />
-                    </Form.Item>
-                    <Form.Item name="desc" label="Description" rules={[{ required: true }]}>
-                        <Input.TextArea rows={3} />
-                    </Form.Item>
-                    <Form.Item name="completed" valuePropName="checked">
-                        <Checkbox
-                            onChange={(e) => {
-                                if (!e.target.checked) {
-                                    unChecked(currentTodo);
-                                    form.setFieldsValue({ completed: false });
-                                }
-                            }}
-                        >
-                            Unmark
-                        </Checkbox>
-                    </Form.Item>
-                </Form>
-            </Modal>
-
-            <Modal
-                title="Add Todo"
-                open={addModalVisible}
-                onCancel={() => setAddModalVisible(false)}
-                onOk={handleAddSubmit}
-            >
-                <Form layout="vertical" form={addForm}>
-                    <Form.Item name="title" label="Title" rules={[{ required: true }]}>
-                        <Input />
-                    </Form.Item>
-                    <Form.Item name="desc" label="Description" rules={[{ required: true }]}>
-                        <Input.TextArea rows={3} />
-                    </Form.Item>
-                </Form>
-            </Modal>
+                Add Todo
+            </Button>
         </div>
+    </div>
+
+    {/* Table + Loading State */}
+    {loading ? (
+        <div className="flex justify-center items-center py-16">
+            <Spin size="large" />
+        </div>
+    ) : (
+        <div className="overflow-auto rounded-lg border shadow-sm">
+            <Table
+                columns={columns}
+                dataSource={todos}
+                pagination={{ pageSize: 5 }}
+                scroll={{ x: 800 }}
+            />
+        </div>
+    )}
+
+    {/* Description Modal */}
+    <Modal
+        title="Full Description"
+        open={descModalVisible}
+        onCancel={() => setDescModalVisible(false)}
+        footer={null}
+        className="rounded-lg"
+    >
+        <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+            {fullDescription}
+        </p>
+    </Modal>
+
+    {/* Edit Modal */}
+    <Modal
+        title="Edit Todo"
+        open={editModalVisible}
+        onCancel={() => setEditModalVisible(false)}
+        onOk={handleEditSubmit}
+        okText="Save"
+        className="rounded-lg"
+    >
+        <Form layout="vertical" form={form}>
+            <Form.Item 
+                name="title" 
+                label={<span className="font-semibold">Title</span>} 
+                rules={[{ required: true }]}
+            >
+                <Input className="shadow-sm" />
+            </Form.Item>
+
+            <Form.Item 
+                name="desc" 
+                label={<span className="font-semibold">Description</span>} 
+                rules={[{ required: true }]}
+            >
+                <Input.TextArea rows={3} className="shadow-sm" />
+            </Form.Item>
+
+            <Form.Item name="completed" valuePropName="checked">
+                <Checkbox
+                    onChange={(e) => {
+                        if (!e.target.checked) {
+                            unChecked(currentTodo);
+                            form.setFieldsValue({ completed: false });
+                        }
+                    }}
+                    className="font-medium"
+                >
+                    Unmark
+                </Checkbox>
+            </Form.Item>
+        </Form>
+    </Modal>
+
+    {/* Add Modal */}
+    <Modal
+        title="Add Todo"
+        open={addModalVisible}
+        onCancel={() => setAddModalVisible(false)}
+        onOk={handleAddSubmit}
+        className="rounded-lg"
+    >
+        <Form layout="vertical" form={addForm}>
+            <Form.Item 
+                name="title" 
+                label={<span className="font-semibold">Title</span>} 
+                rules={[{ required: true }]}
+            >
+                <Input className="shadow-sm" />
+            </Form.Item>
+
+            <Form.Item 
+                name="desc" 
+                label={<span className="font-semibold">Description</span>} 
+                rules={[{ required: true }]}
+            >
+                <Input.TextArea rows={3} className="shadow-sm" />
+            </Form.Item>
+        </Form>
+    </Modal>
+</div>
+
     );
 };
 
